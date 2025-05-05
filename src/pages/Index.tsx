@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -99,13 +98,13 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
       </section>
 
-      {/* How It Works Section */}
+      {/* How It Works Section - Updated with Progress Focus */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold">How It Works</h2>
             <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-              Our platform makes it easy to find and connect with the right mentors in just a few steps
+              Track your progress and visualize your mentoring journey
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -116,14 +115,21 @@ const Index = () => {
             />
             <FeatureCard
               icon={<Calendar className="h-6 w-6 text-mentor-primary" />}
-              title="Schedule a Session"
-              description="Book a one-on-one mentoring session at a time that works for both you and your mentor."
+              title="Monitor Your Progress"
+              description="View your journey through our interactive calendar and track how your skills develop month by month."
             />
             <FeatureCard
               icon={<Video className="h-6 w-6 text-mentor-primary" />}
-              title="Connect and Learn"
-              description="Join your session via video call, chat, ask questions, and receive personalized guidance."
+              title="Achieve Your Goals"
+              description="Set milestones, connect with mentors, and watch your progress as you reach each career objective."
             />
+          </div>
+          <div className="text-center mt-8">
+            <Button className="bg-mentor-primary hover:bg-mentor-secondary">
+              <Link to="/about" className="flex items-center">
+                View Your Progress Calendar <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
