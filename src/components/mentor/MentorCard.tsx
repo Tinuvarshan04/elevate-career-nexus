@@ -20,12 +20,11 @@ export interface MentorProps {
   avatar?: string;
   rating: number;
   skills: Skill[];
-  hourlyRate?: number;
   availability: string;
 }
 
 export function MentorCard({ mentor }: { mentor: MentorProps }) {
-  const { id, name, title, company, avatar, rating, skills, hourlyRate, availability } = mentor;
+  const { id, name, title, company, avatar, rating, skills, availability } = mentor;
   const initials = name
     .split(' ')
     .map((n) => n[0])
@@ -74,11 +73,9 @@ export function MentorCard({ mentor }: { mentor: MentorProps }) {
           <Calendar className="h-4 w-4 mr-1" />
           <span>{availability}</span>
         </div>
-        {hourlyRate && (
-          <div className="mt-2 text-sm font-medium">
-            ${hourlyRate}/hour
-          </div>
-        )}
+        <div className="mt-2 text-sm font-medium text-green-600">
+          Free sessions
+        </div>
       </CardContent>
       <CardFooter className="pt-2">
         <Button className="w-full bg-mentor-primary hover:bg-mentor-secondary">

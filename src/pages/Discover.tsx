@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { MentorCard, MentorProps } from '@/components/mentor/MentorCard';
@@ -37,7 +36,6 @@ const mockMentors: MentorProps[] = [
       { id: 's3', name: 'UX Design' },
       { id: 's4', name: 'User Research' },
     ],
-    hourlyRate: 85,
     availability: 'Weekdays & evenings',
   },
   {
@@ -52,7 +50,6 @@ const mockMentors: MentorProps[] = [
       { id: 's2', name: 'Node.js' },
       { id: 's3', name: 'System Architecture' },
     ],
-    hourlyRate: 90,
     availability: 'Weekends',
   },
   {

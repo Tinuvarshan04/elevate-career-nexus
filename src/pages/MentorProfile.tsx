@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -39,7 +38,6 @@ const mentorData = {
     { id: 's6', name: 'Roadmapping' },
   ],
   languages: ['English', 'Spanish'],
-  hourlyRate: 85,
   availability: 'Weekdays & evenings',
   experience: [
     {
@@ -176,8 +174,8 @@ const MentorProfile = () => {
           
           <div className="flex flex-col gap-3">
             <div className="text-right">
-              <div className="text-2xl font-bold">${mentor.hourlyRate}</div>
-              <div className="text-gray-500">per hour</div>
+              <div className="text-2xl font-bold text-green-600">Free</div>
+              <div className="text-gray-500">mentorship sessions</div>
             </div>
             <Button className="bg-mentor-primary hover:bg-mentor-secondary">
               Book a Session

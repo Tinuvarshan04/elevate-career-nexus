@@ -72,7 +72,7 @@ export function BookingCalendar({ mentorId = '1', mentorName = 'John Mentor' }: 
       
       toast({
         title: "Session booked successfully!",
-        description: `Your session with ${mentorName} has been scheduled.`,
+        description: `Your free session with ${mentorName} has been scheduled.`,
       });
       
       // In a real app, we would navigate to a confirmation page or update UI
@@ -86,7 +86,7 @@ export function BookingCalendar({ mentorId = '1', mentorName = 'John Mentor' }: 
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
-        <CardTitle>Book a Session with {mentorName}</CardTitle>
+        <CardTitle>Book a Free Session with {mentorName}</CardTitle>
         <CardDescription>Select a date and time for your mentoring session</CardDescription>
       </CardHeader>
       <CardContent>
@@ -149,6 +149,7 @@ export function BookingCalendar({ mentorId = '1', mentorName = 'John Mentor' }: 
               })}{' '}
               at {selectedSlotTime}
             </p>
+            <p className="text-green-600 font-medium mt-1">Free session</p>
           </div>
         )}
         <Button 
@@ -156,7 +157,7 @@ export function BookingCalendar({ mentorId = '1', mentorName = 'John Mentor' }: 
           disabled={!selectedSlot || isBooking}
           className="w-full bg-mentor-primary hover:bg-mentor-secondary"
         >
-          {isBooking ? 'Booking...' : 'Book Session'}
+          {isBooking ? 'Booking...' : 'Book Free Session'}
         </Button>
       </CardFooter>
     </Card>
