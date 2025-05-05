@@ -11,6 +11,8 @@ import {
   MessageSquare, 
   Bell 
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { AuthTabs } from '@/components/auth/AuthTabs';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,8 +45,22 @@ export function Navbar() {
               Resources
             </Link>
             <div className="ml-4 space-x-2">
-              <Button variant="outline">Sign In</Button>
-              <Button className="bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline">Sign In</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <AuthTabs />
+                </DialogContent>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <AuthTabs defaultTab="sign-up" />
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
 
@@ -86,8 +102,22 @@ export function Navbar() {
             Resources
           </Link>
           <div className="pt-2 space-y-2">
-            <Button variant="outline" className="w-full justify-center">Sign In</Button>
-            <Button className="w-full justify-center bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full justify-center">Sign In</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <AuthTabs />
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="w-full justify-center bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <AuthTabs defaultTab="sign-up" />
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       )}

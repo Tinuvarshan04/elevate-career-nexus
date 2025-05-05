@@ -7,7 +7,11 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 
-export function AuthTabs() {
+interface AuthTabsProps {
+  defaultTab?: 'sign-in' | 'sign-up';
+}
+
+export function AuthTabs({ defaultTab = 'sign-in' }: AuthTabsProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userType, setUserType] = useState<'mentee' | 'mentor'>('mentee');
@@ -41,7 +45,7 @@ export function AuthTabs() {
   };
 
   return (
-    <Tabs defaultValue="sign-in" className="w-full max-w-md">
+    <Tabs defaultValue={defaultTab} className="w-full max-w-md">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="sign-in">Sign In</TabsTrigger>
         <TabsTrigger value="sign-up">Sign Up</TabsTrigger>
