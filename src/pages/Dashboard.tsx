@@ -16,8 +16,74 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Define types for the dashboard data structures
+interface MenteeDashboardData {
+  upcomingSessions: Array<{
+    id: string;
+    mentorName: string;
+    mentorAvatar: string;
+    date: string;
+    time: string;
+    topic: string;
+    status: string;
+  }>;
+  recommendedMentors: Array<{
+    id: string;
+    name: string;
+    title: string;
+    company: string;
+    avatar: string;
+    rating: number;
+    specialties: string[];
+  }>;
+  recentMessages: Array<{
+    id: string;
+    from: string;
+    avatar: string;
+    message: string;
+    time: string;
+    unread: boolean;
+  }>;
+  completedSessions: number;
+  hoursSpent: number;
+  notifications: number;
+}
+
+interface MentorDashboardData {
+  upcomingSessions: Array<{
+    id: string;
+    menteeName: string;
+    menteeAvatar: string;
+    date: string;
+    time: string;
+    topic: string;
+    status: string;
+  }>;
+  mentees: Array<{
+    id: string;
+    name: string;
+    avatar: string;
+    sessions: number;
+    lastSession: string;
+  }>;
+  recentMessages: Array<{
+    id: string;
+    from: string;
+    avatar: string;
+    message: string;
+    time: string;
+    unread: boolean;
+  }>;
+  completedSessions: number;
+  hoursMentored: number;
+  earnings: number;
+  rating: number;
+  reviewCount: number;
+  notifications: number;
+}
+
 // Mentee dashboard data
-const menteeDashboardData = {
+const menteeDashboardData: MenteeDashboardData = {
   upcomingSessions: [
     {
       id: 's1',
@@ -91,7 +157,7 @@ const menteeDashboardData = {
 };
 
 // Mentor dashboard data
-const mentorDashboardData = {
+const mentorDashboardData: MentorDashboardData = {
   upcomingSessions: [
     {
       id: 's1',
@@ -183,7 +249,17 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ userType = 'mentee' }) => {
+  // Properly type the data variable based on the userType
   const data = userType === 'mentor' ? mentorDashboardData : menteeDashboardData;
+
+  // Create type guards to help TypeScript understand when we're working with which data type
+  const isMentorData = (data: MentorDashboardData | MenteeDashboardData): data is MentorDashboardData => {
+    return userType === 'mentor';
+  };
+
+  const isMenteeData = (data: MentorDashboardData | MenteeDashboardData): data is MenteeDashboardData => {
+    return userType === 'mentee';
+  };
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -210,7 +286,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userType = 'mentee' }) => {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {userType === 'mentee' ? (
+          {isMenteeData(data) ? (
             <>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -322,7 +398,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userType = 'mentee' }) => {
               </Button>
             </CardHeader>
             <CardContent>
-              {userType === 'mentee' ? (
+              {isMenteeData(data) ? (
                 data.upcomingSessions.length > 0 ? (
                   <ul className="space-y-4">
                     {data.upcomingSessions.map((session) => (
@@ -474,7 +550,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userType = 'mentee' }) => {
         </div>
 
         {/* Additional Sections */}
-        {userType === 'mentee' ? (
+        {isMenteeData(data) ? (
           <Card>
             <CardHeader>
               <CardTitle>Recommended Mentors</CardTitle>
