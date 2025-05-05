@@ -65,7 +65,6 @@ const mockMentors: MentorProps[] = [
       { id: 's3', name: 'Content Strategy' },
       { id: 's4', name: 'Analytics' },
     ],
-    hourlyRate: 75,
     availability: 'Flexible schedule',
   },
   {
@@ -81,7 +80,6 @@ const mockMentors: MentorProps[] = [
       { id: 's3', name: 'Statistics' },
       { id: 's4', name: 'Data Visualization' },
     ],
-    hourlyRate: 100,
     availability: 'Weekday evenings',
   },
   {
@@ -97,7 +95,6 @@ const mockMentors: MentorProps[] = [
       { id: 's3', name: 'Prototyping' },
       { id: 's4', name: 'Figma' },
     ],
-    hourlyRate: 80,
     availability: 'Weekends & evenings',
   },
   {
@@ -112,7 +109,6 @@ const mockMentors: MentorProps[] = [
       { id: 's2', name: 'Investment Strategy' },
       { id: 's3', name: 'Risk Management' },
     ],
-    hourlyRate: 95,
     availability: 'Weekday mornings',
   },
 ];
