@@ -11,7 +11,8 @@ import {
   MessageSquare, 
   Users, 
   CheckCircle2,
-  BookOpen
+  BookOpen,
+  Star
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -79,7 +80,7 @@ const menteeDashboardData = {
       id: 'msg2',
       from: 'Marcus Chen',
       avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      message: 'I've shared some resources on React performance optimization. Check them out before our call.',
+      message: 'I\'ve shared some resources on React performance optimization. Check them out before our call.',
       time: '1 day ago',
       unread: false
     }
@@ -148,7 +149,7 @@ const mentorDashboardData = {
       id: 'msg1',
       from: 'Michael Torres',
       avatar: 'https://randomuser.me/api/portraits/men/72.jpg',
-      message: 'Thanks for the feedback on my portfolio! I've made the changes you suggested.',
+      message: 'Thanks for the feedback on my portfolio! I\'ve made the changes you suggested.',
       time: '3 hours ago',
       unread: true
     },
@@ -164,7 +165,7 @@ const mentorDashboardData = {
       id: 'msg3',
       from: 'David Lee',
       avatar: 'https://randomuser.me/api/portraits/men/34.jpg',
-      message: 'Looking forward to our first session! I've prepared some questions about career transitions.',
+      message: 'Looking forward to our first session! I\'ve prepared some questions about career transitions.',
       time: '2 days ago',
       unread: false
     }
@@ -202,8 +203,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userType = 'mentee' }) => {
           </h1>
           <p className="text-muted-foreground">
             {userType === 'mentor' 
-              ? 'Here's an overview of your mentoring activities and upcoming sessions.' 
-              : 'Here's an overview of your mentoring journey and upcoming sessions.'}
+              ? 'Here\'s an overview of your mentoring activities and upcoming sessions.' 
+              : 'Here\'s an overview of your mentoring journey and upcoming sessions.'}
           </p>
         </div>
 

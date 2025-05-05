@@ -27,7 +27,7 @@ const mentorData = {
   company: 'TechGiant Inc.',
   location: 'San Francisco, CA',
   avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-  bio: 'Product leader with 10+ years of experience in the tech industry. I've led teams at startups and Fortune 500 companies, launching products used by millions. I'm passionate about mentoring the next generation of product managers and helping them navigate their career growth.',
+  bio: 'Product leader with 10+ years of experience in the tech industry. I\'ve led teams at startups and Fortune 500 companies, launching products used by millions. I\'m passionate about mentoring the next generation of product managers and helping them navigate their career growth.',
   rating: 4.9,
   reviewCount: 87,
   skills: [
