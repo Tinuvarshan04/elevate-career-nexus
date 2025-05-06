@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -6,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BookingCalendar } from '@/components/calendar/BookingCalendar';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { BookingForm } from '@/components/mentor/BookingForm';
 import { 
   Calendar, 
   Clock,
@@ -177,9 +180,16 @@ const MentorProfile = () => {
               <div className="text-2xl font-bold text-green-600">Free</div>
               <div className="text-gray-500">mentorship sessions</div>
             </div>
-            <Button className="bg-mentor-primary hover:bg-mentor-secondary">
-              Book a Session
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-mentor-primary hover:bg-mentor-secondary">
+                  Book a Session
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <BookingForm mentorId={mentor.id} mentorName={mentor.name} />
+              </DialogContent>
+            </Dialog>
             <Button variant="outline">
               <MessageSquare className="h-4 w-4 mr-2" /> Message
             </Button>

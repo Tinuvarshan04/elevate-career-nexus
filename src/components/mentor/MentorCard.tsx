@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Star, Calendar } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { BookingForm } from './BookingForm';
 
 interface Skill {
   id: string;
@@ -78,9 +80,16 @@ export function MentorCard({ mentor }: { mentor: MentorProps }) {
         </div>
       </CardContent>
       <CardFooter className="pt-2">
-        <Button className="w-full bg-mentor-primary hover:bg-mentor-secondary">
-          Book Session
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="w-full bg-mentor-primary hover:bg-mentor-secondary">
+              Book Session
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <BookingForm mentorId={id} mentorName={name} />
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );
