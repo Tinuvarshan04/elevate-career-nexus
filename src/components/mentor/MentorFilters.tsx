@@ -19,10 +19,10 @@ interface MentorFiltersProps {
 }
 
 export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
-  const [industry, setIndustry] = React.useState<string>('');
+  const [industry, setIndustry] = React.useState<string>('all');
   const [priceRange, setPriceRange] = React.useState<number[]>([0, 200]);
   const [skills, setSkills] = React.useState<string[]>([]);
-  const [availability, setAvailability] = React.useState<string>('');
+  const [availability, setAvailability] = React.useState<string>('all');
   const [rating, setRating] = React.useState<number>(0);
 
   const handleSkillToggle = (skill: string) => {
@@ -44,10 +44,10 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
   };
 
   const handleClearFilters = () => {
-    setIndustry('');
+    setIndustry('all');
     setPriceRange([0, 200]);
     setSkills([]);
-    setAvailability('');
+    setAvailability('all');
     setRating(0);
     onFilterChange({});
   };
@@ -75,7 +75,7 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
               <SelectValue placeholder="Select industry" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Industries</SelectItem>
+              <SelectItem value="all">All Industries</SelectItem>
               <SelectItem value="technology">Technology</SelectItem>
               <SelectItem value="finance">Finance</SelectItem>
               <SelectItem value="healthcare">Healthcare</SelectItem>
@@ -131,7 +131,7 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
               <SelectValue placeholder="Select availability" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Any Time</SelectItem>
+              <SelectItem value="all">Any Time</SelectItem>
               <SelectItem value="weekdays">Weekdays</SelectItem>
               <SelectItem value="weekends">Weekends</SelectItem>
               <SelectItem value="evenings">Evenings</SelectItem>
