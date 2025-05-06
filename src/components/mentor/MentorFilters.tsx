@@ -13,6 +13,7 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Filter, X } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface MentorFiltersProps {
   onFilterChange: (filters: any) => void;
@@ -52,9 +53,60 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
     onFilterChange({});
   };
 
+  const handleRemoveFilter = (filterType: string, filterValue?: string) => {
+    switch (filterType) {
+      case 'industry':
+        setIndustry('all');
+        break;
+      case 'priceRange':
+        setPriceRange([0, 200]);
+        break;
+      case 'skill':
+        if (filterValue) {
+          setSkills((prev) => prev.filter((s) => s !== filterValue));
+        }
+        break;
+      case 'availability':
+        setAvailability('all');
+        break;
+      case 'rating':
+        setRating(0);
+        break;
+      default:
+        break;
+    }
+  };
+
   // Apply filters automatically when any filter changes
   React.useEffect(() => {
     handleApplyFilters();
+  }, [industry, priceRange, skills, availability, rating]);
+
+  // Get active filters to display
+  const activeFilters = React.useMemo(() => {
+    const filters = [];
+    
+    if (industry !== 'all') {
+      filters.push({ type: 'industry', label: `Industry: ${industry}` });
+    }
+    
+    if (priceRange[0] > 0 || priceRange[1] < 200) {
+      filters.push({ type: 'priceRange', label: `Price: $${priceRange[0]} - $${priceRange[1]}` });
+    }
+    
+    skills.forEach(skill => {
+      filters.push({ type: 'skill', label: `Skill: ${skill}`, value: skill });
+    });
+    
+    if (availability !== 'all') {
+      filters.push({ type: 'availability', label: `Availability: ${availability}` });
+    }
+    
+    if (rating > 0) {
+      filters.push({ type: 'rating', label: `Min Rating: ${rating}★` });
+    }
+    
+    return filters;
   }, [industry, priceRange, skills, availability, rating]);
 
   return (
@@ -65,6 +117,30 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
           <X className="h-4 w-4 mr-1" /> Clear all
         </Button>
       </div>
+
+      {/* Active Filters */}
+      {activeFilters.length > 0 && (
+        <div className="space-y-2">
+          <Label className="text-sm text-gray-500">Active Filters</Label>
+          <div className="flex flex-wrap gap-2">
+            {activeFilters.map((filter, index) => (
+              <Badge 
+                key={`${filter.type}-${index}`}
+                variant="outline" 
+                className="flex items-center gap-1 bg-gray-50"
+              >
+                {filter.label}
+                <button 
+                  className="ml-1 rounded-full hover:bg-gray-200 p-0.5" 
+                  onClick={() => handleRemoveFilter(filter.type, filter.value)}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-4">
         {/* Industry Filter */}
@@ -139,8 +215,6 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
             </SelectContent>
           </Select>
         </div>
-
-        {/* Removed the Apply Filter button since we're applying filters automatically */}
       </div>
     </div>
   );

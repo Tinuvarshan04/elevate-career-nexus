@@ -1,15 +1,16 @@
-
 import React, { useState, useEffect } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { MentorCard, MentorProps } from '@/components/mentor/MentorCard';
 import { MentorFilters } from '@/components/mentor/MentorFilters';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import { 
   LayoutGrid, 
   LayoutList, 
   Search, 
-  Filter as FilterIcon
+  Filter as FilterIcon,
+  X
 } from 'lucide-react';
 import {
   Sheet,
@@ -124,6 +125,7 @@ const Discover = () => {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filters, setFilters] = useState<any>({});
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   useEffect(() => {
     // Simulate API fetch
@@ -235,7 +237,65 @@ const Discover = () => {
 
   const handleFilterChange = (newFilters: any) => {
     applyFilters(newFilters);
+    setSheetOpen(false);
   };
+
+  const handleRemoveFilter = (filterType: string, filterValue?: string) => {
+    const newFilters = { ...filters };
+    
+    switch (filterType) {
+      case 'industry':
+        newFilters.industry = null;
+        break;
+      case 'priceRange':
+        newFilters.priceRange = [0, 200];
+        break;
+      case 'skill':
+        if (filterValue && newFilters.skills) {
+          newFilters.skills = newFilters.skills.filter((s: string) => s !== filterValue);
+        }
+        break;
+      case 'availability':
+        newFilters.availability = null;
+        break;
+      case 'rating':
+        newFilters.rating = 0;
+        break;
+      default:
+        break;
+    }
+    
+    applyFilters(newFilters);
+  };
+
+  // Get active filters to display
+  const activeFilters = React.useMemo(() => {
+    const activeFilters = [];
+    
+    if (filters.industry) {
+      activeFilters.push({ type: 'industry', label: `Industry: ${filters.industry}` });
+    }
+    
+    if (filters.priceRange && (filters.priceRange[0] > 0 || filters.priceRange[1] < 200)) {
+      activeFilters.push({ type: 'priceRange', label: `Price: $${filters.priceRange[0]} - $${filters.priceRange[1]}` });
+    }
+    
+    if (filters.skills && filters.skills.length > 0) {
+      filters.skills.forEach((skill: string) => {
+        activeFilters.push({ type: 'skill', label: `Skill: ${skill}`, value: skill });
+      });
+    }
+    
+    if (filters.availability) {
+      activeFilters.push({ type: 'availability', label: `Availability: ${filters.availability}` });
+    }
+    
+    if (filters.rating && filters.rating > 0) {
+      activeFilters.push({ type: 'rating', label: `Min Rating: ${filters.rating}★` });
+    }
+    
+    return activeFilters;
+  }, [filters]);
 
   return (
     <MainLayout>
@@ -269,11 +329,16 @@ const Discover = () => {
             </Button>
             
             {/* Mobile Filters */}
-            <Sheet>
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" className="md:hidden flex items-center">
                   <FilterIcon className="mr-2 h-4 w-4" />
                   Filters
+                  {activeFilters.length > 0 && (
+                    <span className="ml-1 bg-primary text-primary-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                      {activeFilters.length}
+                    </span>
+                  )}
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
@@ -310,6 +375,37 @@ const Discover = () => {
             </div>
           </div>
         </div>
+        
+        {/* Active Filters - Mobile & Desktop */}
+        {activeFilters.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {activeFilters.map((filter, index) => (
+              <Badge 
+                key={`${filter.type}-${index}`}
+                variant="outline" 
+                className="flex items-center gap-1 bg-gray-50"
+              >
+                {filter.label}
+                <button 
+                  className="ml-1 rounded-full hover:bg-gray-200 p-0.5" 
+                  onClick={() => handleRemoveFilter(filter.type, filter.value)}
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            ))}
+            {activeFilters.length > 0 && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => applyFilters({})} 
+                className="h-7 text-xs"
+              >
+                Clear all
+              </Button>
+            )}
+          </div>
+        )}
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
