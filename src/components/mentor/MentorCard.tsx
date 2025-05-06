@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Star, Calendar } from 'lucide-react';
+import { Star, Calendar, MessageSquare } from 'lucide-react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { BookingForm } from './BookingForm';
 
@@ -32,6 +32,13 @@ export function MentorCard({ mentor }: { mentor: MentorProps }) {
     .map((n) => n[0])
     .join('')
     .toUpperCase();
+  
+  const navigate = useNavigate();
+
+  const handleMessageClick = () => {
+    // Navigate to resources page with private message tab and mentor selected
+    navigate(`/resources?tab=private&mentor=${id}`);
+  };
 
   return (
     <Card className="hover:shadow-md transition-all duration-200 hover:-translate-y-1">
@@ -79,7 +86,7 @@ export function MentorCard({ mentor }: { mentor: MentorProps }) {
           Free sessions
         </div>
       </CardContent>
-      <CardFooter className="pt-2">
+      <CardFooter className="pt-2 gap-2 flex">
         <Dialog>
           <DialogTrigger asChild>
             <Button className="w-full bg-mentor-primary hover:bg-mentor-secondary">
@@ -90,6 +97,13 @@ export function MentorCard({ mentor }: { mentor: MentorProps }) {
             <BookingForm mentorId={id} mentorName={name} />
           </DialogContent>
         </Dialog>
+        <Button 
+          variant="outline" 
+          className="w-full border-mentor-primary text-mentor-primary hover:bg-mentor-light"
+          onClick={handleMessageClick}
+        >
+          <MessageSquare className="h-4 w-4 mr-2" /> Message
+        </Button>
       </CardFooter>
     </Card>
   );
