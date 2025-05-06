@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { MentorCard, MentorProps } from '@/components/mentor/MentorCard';
@@ -20,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { toast } from "@/components/ui/use-toast";
 
 // Mock data for mentors
 const mockMentors: MentorProps[] = [
@@ -49,6 +51,7 @@ const mockMentors: MentorProps[] = [
       { id: 's1', name: 'React' },
       { id: 's2', name: 'Node.js' },
       { id: 's3', name: 'System Architecture' },
+      { id: 's4', name: 'Technical' },
     ],
     availability: 'Weekends',
   },
@@ -63,7 +66,7 @@ const mockMentors: MentorProps[] = [
       { id: 's1', name: 'Digital Marketing' },
       { id: 's2', name: 'SEO' },
       { id: 's3', name: 'Content Strategy' },
-      { id: 's4', name: 'Analytics' },
+      { id: 's4', name: 'Marketing' },
     ],
     availability: 'Flexible schedule',
   },
@@ -78,7 +81,7 @@ const mockMentors: MentorProps[] = [
       { id: 's1', name: 'Machine Learning' },
       { id: 's2', name: 'Python' },
       { id: 's3', name: 'Statistics' },
-      { id: 's4', name: 'Data Visualization' },
+      { id: 's4', name: 'Technical' },
     ],
     availability: 'Weekday evenings',
   },
@@ -93,7 +96,7 @@ const mockMentors: MentorProps[] = [
       { id: 's1', name: 'UI Design' },
       { id: 's2', name: 'User Research' },
       { id: 's3', name: 'Prototyping' },
-      { id: 's4', name: 'Figma' },
+      { id: 's4', name: 'Design' },
     ],
     availability: 'Weekends & evenings',
   },
@@ -108,6 +111,7 @@ const mockMentors: MentorProps[] = [
       { id: 's1', name: 'Financial Planning' },
       { id: 's2', name: 'Investment Strategy' },
       { id: 's3', name: 'Risk Management' },
+      { id: 's4', name: 'Strategy' },
     ],
     availability: 'Weekday mornings',
   },
@@ -115,16 +119,18 @@ const mockMentors: MentorProps[] = [
 
 const Discover = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [mentors, setMentors] = useState<MentorProps[]>([]);
+  const [allMentors, setAllMentors] = useState<MentorProps[]>([]);
+  const [filteredMentors, setFilteredMentors] = useState<MentorProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<any>({});
 
   useEffect(() => {
     // Simulate API fetch
     const fetchMentors = () => {
       setTimeout(() => {
-        setMentors(mockMentors);
+        setAllMentors(mockMentors);
+        setFilteredMentors(mockMentors);
         setLoading(false);
       }, 800);
     };
@@ -134,14 +140,101 @@ const Discover = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would filter based on the search term
-    console.log('Searching for:', searchTerm);
+    
+    if (!searchTerm.trim()) {
+      applyFilters(filters);
+      return;
+    }
+
+    const searchResults = allMentors.filter(mentor => 
+      mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      mentor.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      mentor.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      mentor.skills.some(skill => skill.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    
+    setFilteredMentors(searchResults);
+    
+    if (searchResults.length === 0) {
+      toast({
+        title: "No results found",
+        description: "Try adjusting your search term or filters",
+      });
+    } else {
+      toast({
+        title: `Found ${searchResults.length} mentors`,
+        description: `Showing results for "${searchTerm}"`,
+      });
+    }
+  };
+
+  const applyFilters = (newFilters: any) => {
+    setFilters(newFilters);
+    console.info('Applied filters:', newFilters);
+    
+    let results = [...allMentors];
+    
+    // Filter by search term if it exists
+    if (searchTerm) {
+      results = results.filter(mentor => 
+        mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        mentor.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        mentor.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        mentor.skills.some(skill => skill.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    
+    // Industry filter
+    if (newFilters.industry) {
+      results = results.filter(mentor => 
+        mentor.title.toLowerCase().includes(newFilters.industry.toLowerCase()) || 
+        mentor.company.toLowerCase().includes(newFilters.industry.toLowerCase())
+      );
+    }
+    
+    // Price Range filter (not implemented in mock data, would work with real data)
+    
+    // Skills filter
+    if (newFilters.skills && newFilters.skills.length > 0) {
+      results = results.filter(mentor => 
+        mentor.skills.some(skill => 
+          newFilters.skills.includes(skill.name)
+        )
+      );
+    }
+    
+    // Availability filter
+    if (newFilters.availability) {
+      results = results.filter(mentor => 
+        mentor.availability.toLowerCase().includes(newFilters.availability.toLowerCase())
+      );
+    }
+    
+    // Rating filter (would work better with real data)
+    if (newFilters.rating && newFilters.rating > 0) {
+      results = results.filter(mentor => mentor.rating >= newFilters.rating);
+    }
+    
+    setFilteredMentors(results);
+    
+    // Show toast with filter results
+    if (Object.keys(newFilters).length > 0 && Object.values(newFilters).some(v => v && (Array.isArray(v) ? v.length > 0 : true))) {
+      if (results.length === 0) {
+        toast({
+          title: "No mentors match your filters",
+          description: "Try adjusting your filter criteria",
+        });
+      } else {
+        toast({
+          title: `Found ${results.length} mentors`,
+          description: "Filters applied successfully",
+        });
+      }
+    }
   };
 
   const handleFilterChange = (newFilters: any) => {
-    setFilters(newFilters);
-    // In a real app, this would filter mentors based on the selected filters
-    console.log('Applied filters:', newFilters);
+    applyFilters(newFilters);
   };
 
   return (
@@ -171,6 +264,10 @@ const Discover = () => {
           </form>
           
           <div className="flex space-x-2">
+            <Button variant="outline" onClick={handleSearch} className="hidden md:flex">
+              Search
+            </Button>
+            
             {/* Mobile Filters */}
             <Sheet>
               <SheetTrigger asChild>
@@ -189,13 +286,6 @@ const Discover = () => {
                 <div className="py-4">
                   <MentorFilters onFilterChange={handleFilterChange} />
                 </div>
-                <SheetFooter>
-                  <SheetClose asChild>
-                    <Button className="w-full bg-mentor-primary hover:bg-mentor-secondary">
-                      Apply Filters
-                    </Button>
-                  </SheetClose>
-                </SheetFooter>
               </SheetContent>
             </Sheet>
             
@@ -235,9 +325,9 @@ const Discover = () => {
                 <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-mentor-primary border-r-transparent" />
                 <p className="mt-2 text-gray-600">Loading mentors...</p>
               </div>
-            ) : mentors.length > 0 ? (
+            ) : filteredMentors.length > 0 ? (
               <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6' : 'space-y-6'}>
-                {mentors.map((mentor) => (
+                {filteredMentors.map((mentor) => (
                   <MentorCard key={mentor.id} mentor={mentor} />
                 ))}
               </div>

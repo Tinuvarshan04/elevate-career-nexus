@@ -52,6 +52,11 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
     onFilterChange({});
   };
 
+  // Apply filters automatically when any filter changes
+  React.useEffect(() => {
+    handleApplyFilters();
+  }, [industry, priceRange, skills, availability, rating]);
+
   return (
     <div className="space-y-6 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
       <div className="flex items-center justify-between">
@@ -70,6 +75,7 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
               <SelectValue placeholder="Select industry" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="">All Industries</SelectItem>
               <SelectItem value="technology">Technology</SelectItem>
               <SelectItem value="finance">Finance</SelectItem>
               <SelectItem value="healthcare">Healthcare</SelectItem>
@@ -125,6 +131,7 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
               <SelectValue placeholder="Select availability" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="">Any Time</SelectItem>
               <SelectItem value="weekdays">Weekdays</SelectItem>
               <SelectItem value="weekends">Weekends</SelectItem>
               <SelectItem value="evenings">Evenings</SelectItem>
@@ -133,12 +140,7 @@ export function MentorFilters({ onFilterChange }: MentorFiltersProps) {
           </Select>
         </div>
 
-        <Button
-          onClick={handleApplyFilters}
-          className="w-full bg-mentor-primary hover:bg-mentor-secondary"
-        >
-          <Filter className="h-4 w-4 mr-2" /> Apply Filters
-        </Button>
+        {/* Removed the Apply Filter button since we're applying filters automatically */}
       </div>
     </div>
   );
