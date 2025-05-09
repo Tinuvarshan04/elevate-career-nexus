@@ -44,6 +44,12 @@ export function Navbar() {
             <Link to="/resources" className="text-gray-600 hover:text-mentor-primary px-3 py-2">
               Resources
             </Link>
+            <Link to="/chat" className="text-gray-600 hover:text-mentor-primary px-3 py-2">
+              <div className="flex items-center">
+                <MessageSquare className="h-4 w-4 mr-1" />
+                Chat
+              </div>
+            </Link>
             <div className="ml-4 space-x-2">
               <Dialog>
                 <DialogTrigger asChild>
@@ -100,6 +106,16 @@ export function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             Resources
+          </Link>
+          <Link 
+            to="/chat" 
+            className="block px-3 py-2 text-gray-600 hover:bg-mentor-light rounded-md"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <div className="flex items-center">
+              <MessageSquare className="h-4 w-4 mr-1" />
+              Chat
+            </div>
           </Link>
           <div className="pt-2 space-y-2">
             <Dialog>

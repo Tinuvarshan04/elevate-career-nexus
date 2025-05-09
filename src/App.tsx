@@ -11,6 +11,7 @@ import MentorProfile from "./pages/MentorProfile";
 import Dashboard from "./pages/Dashboard";
 import Resources from "./pages/Resources";
 import About from "./pages/About";
+import Chat from "./pages/Chat";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard userType="mentee" />} />
           <Route path="/mentor-dashboard" element={<Dashboard userType="mentor" />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

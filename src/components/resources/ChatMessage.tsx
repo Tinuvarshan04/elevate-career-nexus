@@ -23,7 +23,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       )}
     >
       <Avatar className="h-8 w-8 flex-shrink-0">
-        {!message.isCurrentUser ? (
+        {!message.isCurrentUser && message.avatar ? (
           <AvatarImage src={message.avatar} alt={message.sender} />
         ) : null}
         <AvatarFallback className={message.isCurrentUser ? "bg-mentor-primary text-white" : ""}>
