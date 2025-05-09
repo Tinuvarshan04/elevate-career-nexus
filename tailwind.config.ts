@@ -66,13 +66,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated color palette for mentor connect
+				// Updated color palette for light blue theme
 				mentor: {
-					primary: '#5F4BB6',
-					secondary: '#8673D1',
-					tertiary: '#A58FFF',
+					primary: '#33C3F0',    // Sky Blue
+					secondary: '#1EAEDB',  // Bright Blue
+					tertiary: '#0FA0CE',   // Bright Blue (darker)
 					dark: '#2A2D3E',
-					light: '#F0EEFF',
+					light: '#D3E4FD',      // Soft Light Blue
 				},
 			},
 			borderRadius: {
