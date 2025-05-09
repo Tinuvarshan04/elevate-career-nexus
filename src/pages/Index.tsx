@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -70,7 +69,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="lg" className="bg-white text-mentor-primary hover:text-white hover:bg-mentor-primary">
+                    <Button size="lg" className="bg-white text-mentor-primary hover:bg-white hover:text-mentor-secondary">
                       Get Started
                     </Button>
                   </DialogTrigger>
@@ -78,7 +77,7 @@ const Index = () => {
                     <AuthTabs />
                   </DialogContent>
                 </Dialog>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-mentor-primary">
+                <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white hover:text-mentor-primary">
                   <Link to="/discover" className="flex items-center">
                     Find Mentors <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -99,7 +98,7 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
       </section>
 
-      {/* How It Works Section - Updated with Progress Focus */}
+      {/* How It Works Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -264,7 +263,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Dialog>
               <DialogTrigger asChild>
-                <Button size="lg" className="bg-white text-mentor-primary hover:text-white hover:bg-mentor-primary/90">
+                <Button size="lg" className="bg-white text-mentor-primary hover:bg-white hover:text-mentor-secondary">
                   Sign Up Now
                 </Button>
               </DialogTrigger>
@@ -272,7 +271,7 @@ const Index = () => {
                 <AuthTabs />
               </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-mentor-primary">
+            <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white hover:text-mentor-primary">
               <Link to="/discover">Browse Mentors</Link>
             </Button>
           </div>
