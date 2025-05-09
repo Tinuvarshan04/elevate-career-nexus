@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -63,13 +64,13 @@ const Index = () => {
                 Connect with Industry Experts to Accelerate Your Career Growth
               </h1>
               <p className="text-lg md:text-xl opacity-90">
-                Elevate Career Nexus connects students and early-career professionals with seasoned mentors who can guide
-                your professional journey.
+                Mentor Connect helps students and early-career professionals connect with 
+                seasoned mentors who can guide your professional journey.
               </p>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button size="lg" className="bg-white text-mentor-primary hover:bg-gray-100">
+                    <Button size="lg" className="bg-white text-mentor-primary hover:text-white hover:bg-mentor-primary">
                       Get Started
                     </Button>
                   </DialogTrigger>
@@ -77,7 +78,7 @@ const Index = () => {
                     <AuthTabs />
                   </DialogContent>
                 </Dialog>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-mentor-primary">
                   <Link to="/discover" className="flex items-center">
                     Find Mentors <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -263,7 +264,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Dialog>
               <DialogTrigger asChild>
-                <Button size="lg" className="bg-white text-mentor-primary hover:bg-gray-100">
+                <Button size="lg" className="bg-white text-mentor-primary hover:text-white hover:bg-mentor-primary/90">
                   Sign Up Now
                 </Button>
               </DialogTrigger>
@@ -271,7 +272,7 @@ const Index = () => {
                 <AuthTabs />
               </DialogContent>
             </Dialog>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-mentor-primary">
               <Link to="/discover">Browse Mentors</Link>
             </Button>
           </div>

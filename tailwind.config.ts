@@ -66,13 +66,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for our mentoring platform
+				// Updated color palette for mentor connect
 				mentor: {
-					primary: '#9b87f5',
-					secondary: '#7E69AB',
-					tertiary: '#6E59A5',
-					dark: '#1A1F2C',
-					light: '#F1F0FB',
+					primary: '#5F4BB6',
+					secondary: '#8673D1',
+					tertiary: '#A58FFF',
+					dark: '#2A2D3E',
+					light: '#F0EEFF',
 				},
 			},
 			borderRadius: {

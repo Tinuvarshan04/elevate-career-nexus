@@ -25,11 +25,11 @@ export function Navbar() {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0">
               <div className="h-10 w-10 bg-gradient-to-r from-mentor-primary to-mentor-secondary rounded-md flex items-center justify-center">
-                <span className="text-white font-bold text-xl">E</span>
+                <span className="text-white font-bold text-xl">M</span>
               </div>
             </Link>
             <Link to="/" className="ml-3 text-xl font-bold text-gray-900">
-              Elevate Career Nexus
+              Mentor Connect
             </Link>
           </div>
 
