@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Resources from "./pages/Resources";
 import About from "./pages/About";
 import Chat from "./pages/Chat";
+import MeetingRequests from "./pages/MeetingRequests";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/mentor/:mentorId" element={<MentorProfile />} />
           <Route path="/dashboard" element={<Dashboard userType="mentee" />} />
           <Route path="/mentor-dashboard" element={<Dashboard userType="mentor" />} />
+          <Route path="/meeting-requests" element={<MeetingRequests />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/about" element={<About />} />

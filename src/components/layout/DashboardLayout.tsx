@@ -52,8 +52,8 @@ export function DashboardLayout({ children, userType = 'mentee' }: DashboardLayo
   const currentPath = location.pathname;
 
   const mentorItems = [
-    { icon: <Home size={20} />, text: "Dashboard", to: "/dashboard" },
-    { icon: <Calendar size={20} />, text: "Schedule", to: "/schedule" },
+    { icon: <Home size={20} />, text: "Dashboard", to: "/mentor-dashboard" },
+    { icon: <Calendar size={20} />, text: "Meeting Requests", to: "/meeting-requests" },
     { icon: <User size={20} />, text: "Mentees", to: "/mentees" },
     { icon: <MessageSquare size={20} />, text: "Messages", to: "/messages" },
     { icon: <Bell size={20} />, text: "Notifications", to: "/notifications" },
