@@ -14,6 +14,10 @@ import About from "./pages/About";
 import Chat from "./pages/Chat";
 import MeetingRequests from "./pages/MeetingRequests";
 import MenteesPage from "./pages/MenteesPage";
+import Sessions from "./pages/Sessions";
+import Messages from "./pages/Messages";
+import Notifications from "./pages/Notifications";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +35,10 @@ const App = () => (
           <Route path="/mentor-dashboard" element={<Dashboard userType="mentor" />} />
           <Route path="/meeting-requests" element={<MeetingRequests />} />
           <Route path="/mentees" element={<MenteesPage />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/about" element={<About />} />

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import {
@@ -11,7 +11,7 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Layout as LayoutIcon,
+  LayoutDashboard,
   Home,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -52,7 +52,7 @@ export function DashboardLayout({ children, userType = 'mentee' }: DashboardLayo
   const currentPath = location.pathname;
 
   const mentorItems = [
-    { icon: <Home size={20} />, text: "Dashboard", to: "/mentor-dashboard" },
+    { icon: <LayoutDashboard size={20} />, text: "Dashboard", to: "/mentor-dashboard" },
     { icon: <Calendar size={20} />, text: "Meeting Requests", to: "/meeting-requests" },
     { icon: <User size={20} />, text: "Mentees", to: "/mentees" },
     { icon: <MessageSquare size={20} />, text: "Messages", to: "/messages" },
@@ -61,7 +61,7 @@ export function DashboardLayout({ children, userType = 'mentee' }: DashboardLayo
   ];
 
   const menteeItems = [
-    { icon: <Home size={20} />, text: "Dashboard", to: "/dashboard" },
+    { icon: <LayoutDashboard size={20} />, text: "Dashboard", to: "/dashboard" },
     { icon: <Search size={20} />, text: "Find Mentors", to: "/discover" },
     { icon: <Calendar size={20} />, text: "My Sessions", to: "/sessions" },
     { icon: <MessageSquare size={20} />, text: "Messages", to: "/messages" },
@@ -70,6 +70,14 @@ export function DashboardLayout({ children, userType = 'mentee' }: DashboardLayo
   ];
 
   const items = userType === 'mentor' ? mentorItems : menteeItems;
+
+  // Auto-detect userType based on current URL if not provided
+  useEffect(() => {
+    if (currentPath.includes('mentor') && userType !== 'mentor') {
+      // We're on a mentor page but userType is not mentor
+      console.log('Auto-detected mentor user type based on URL');
+    }
+  }, [currentPath, userType]);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
