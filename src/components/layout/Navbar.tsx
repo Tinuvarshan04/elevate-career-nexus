@@ -11,7 +11,13 @@ import {
   MessageSquare, 
   Bell 
 } from 'lucide-react';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription 
+} from '@/components/ui/dialog';
 import { AuthTabs } from '@/components/auth/AuthTabs';
 
 export function Navbar() {
@@ -56,6 +62,8 @@ export function Navbar() {
                   <Button variant="outline">Sign In</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
+                  <DialogTitle>Sign In</DialogTitle>
+                  <DialogDescription>Access your mentor or mentee account.</DialogDescription>
                   <AuthTabs />
                 </DialogContent>
               </Dialog>
@@ -64,6 +72,8 @@ export function Navbar() {
                   <Button className="bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
+                  <DialogTitle>Create Account</DialogTitle>
+                  <DialogDescription>Join as a mentor or mentee today.</DialogDescription>
                   <AuthTabs defaultTab="sign-up" />
                 </DialogContent>
               </Dialog>
@@ -123,6 +133,8 @@ export function Navbar() {
                 <Button variant="outline" className="w-full justify-center">Sign In</Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
+                <DialogTitle>Sign In</DialogTitle>
+                <DialogDescription>Access your mentor or mentee account.</DialogDescription>
                 <AuthTabs />
               </DialogContent>
             </Dialog>
@@ -131,6 +143,8 @@ export function Navbar() {
                 <Button className="w-full justify-center bg-mentor-primary hover:bg-mentor-secondary">Join Now</Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
+                <DialogTitle>Create Account</DialogTitle>
+                <DialogDescription>Join as a mentor or mentee today.</DialogDescription>
                 <AuthTabs defaultTab="sign-up" />
               </DialogContent>
             </Dialog>
