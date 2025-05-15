@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Message, Star, Video } from 'lucide-react';
+import { MessageSquare, Star, Video } from 'lucide-react';
 
 // Mock mentee data
 const mentees = [
@@ -113,7 +113,7 @@ const MenteesPage = () => {
                     <TableCell>
                       <div className="flex space-x-2">
                         <Button size="sm" variant="outline" className="h-8 w-8 p-0">
-                          <Message className="h-4 w-4" />
+                          <MessageSquare className="h-4 w-4" />
                           <span className="sr-only">Message</span>
                         </Button>
                         <Button size="sm" variant="outline" className="h-8 w-8 p-0">
