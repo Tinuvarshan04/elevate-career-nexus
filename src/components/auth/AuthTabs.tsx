@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthTabsProps {
   defaultTab?: 'sign-in' | 'sign-up';
@@ -13,21 +14,48 @@ interface AuthTabsProps {
 
 export function AuthTabs({ defaultTab = 'sign-in' }: AuthTabsProps) {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userType, setUserType] = useState<'mentee' | 'mentor'>('mentee');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Success!",
-        description: "You've successfully signed in.",
-      });
-    }, 1500);
+    // Check for dummy mentor credentials
+    if (email === 'mentor@example.com' && password === '12345678') {
+      setTimeout(() => {
+        setIsLoading(false);
+        toast({
+          title: "Success!",
+          description: "You've successfully signed in as a mentor.",
+        });
+        navigate('/mentor-dashboard');
+      }, 1500);
+    } 
+    // Check for dummy mentee credentials
+    else if (email === 'mentee@example.com' && password === '12345678') {
+      setTimeout(() => {
+        setIsLoading(false);
+        toast({
+          title: "Success!",
+          description: "You've successfully signed in as a mentee.",
+        });
+        navigate('/dashboard');
+      }, 1500);
+    }
+    // Default sign in
+    else {
+      setTimeout(() => {
+        setIsLoading(false);
+        toast({
+          title: "Error",
+          description: "Please use mentor@example.com/12345678 for mentor access or mentee@example.com/12345678 for mentee access.",
+        });
+      }, 1500);
+    }
   };
 
   const handleSignUp = (e: React.FormEvent) => {
@@ -37,10 +65,21 @@ export function AuthTabs({ defaultTab = 'sign-in' }: AuthTabsProps) {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      toast({
-        title: "Account created!",
-        description: `You've successfully created a ${userType} account.`,
-      });
+      
+      // Redirect based on user type
+      if (userType === 'mentor') {
+        toast({
+          title: "Mentor account created!",
+          description: "You've successfully created a mentor account.",
+        });
+        navigate('/mentor-dashboard');
+      } else {
+        toast({
+          title: "Mentee account created!",
+          description: "You've successfully created a mentee account.",
+        });
+        navigate('/dashboard');
+      }
     }, 1500);
   };
 
@@ -54,7 +93,14 @@ export function AuthTabs({ defaultTab = 'sign-in' }: AuthTabsProps) {
         <form onSubmit={handleSignIn} className="space-y-4 pt-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="name@example.com" required />
+            <Input 
+              id="email" 
+              type="email" 
+              placeholder="name@example.com" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
@@ -63,7 +109,17 @@ export function AuthTabs({ defaultTab = 'sign-in' }: AuthTabsProps) {
                 Forgot password?
               </a>
             </div>
-            <Input id="password" type="password" required />
+            <Input 
+              id="password" 
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="text-sm text-gray-500 italic">
+            <p>Mentor login: mentor@example.com / 12345678</p>
+            <p>Mentee login: mentee@example.com / 12345678</p>
           </div>
           <Button type="submit" className="w-full bg-mentor-primary hover:bg-mentor-secondary" disabled={isLoading}>
             {isLoading ? 'Signing in...' : 'Sign In'}
